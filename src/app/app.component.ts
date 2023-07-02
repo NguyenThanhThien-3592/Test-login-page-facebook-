@@ -38,6 +38,8 @@ export class AppComponent {
       FB.AppEvents.logPageView();
     };
 
+    (window as any).fbAsyncInit();
+
     const statusChangeCallback = (response: any) => {
       console.log('statusChangeCallback');
       console.log(response);
