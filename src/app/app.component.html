@@ -16,3 +16,10 @@
   data-auto-logout-link="true"
   data-use-continue-as="true"
 ></div>
+
+<ul *ngIf="pages.length">
+  <li *ngFor="let page of pages">
+    {{ page.name }}
+    <button (click)="loginToPage(page.id)">Submit</button>
+  </li>
+</ul>

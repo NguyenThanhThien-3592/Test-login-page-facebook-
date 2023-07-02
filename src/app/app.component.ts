@@ -7,6 +7,7 @@ declare const FB: any;
 })
 export class AppComponent {
   title = 'login-page';
+  pages: any = [];
   ngOnInit() {
     console.log('hello');
     (window as any).fbAsyncInit = function () {
@@ -22,13 +23,6 @@ export class AppComponent {
       });
 
       FB.AppEvents.logPageView();
-
-      FB.api('/me/accounts', function (response: any) {
-        if (response && !response.error) {
-          console.log(response); // Danh sách các trang của người dùng
-          // Thực hiện xử lý với danh sách trang ở đây
-        }
-      });
     };
 
     function statusChangeCallback(response: any) {
@@ -45,6 +39,12 @@ export class AppComponent {
           console.log('Successful login for: ' + response.name);
           document.getElementById('status')!.innerHTML =
             'Thanks for logging in, ' + response.name + '!';
+        });
+
+        FB.api('/me/accounts', function (response: any) {
+          if (response && !response.error) {
+            console.log('page: ', response); // Danh sách các trang của người dùng
+          }
         });
       } else {
         // The person is not logged into your app or we are unable to tell.
@@ -64,5 +64,21 @@ export class AppComponent {
       js.src = 'https://connect.facebook.net/en_US/sdk.js';
       fjs.parentNode!.insertBefore(js, fjs);
     })(document, 'script', 'facebook-jssdk');
+  }
+
+  loginToPage(pageId: string) {
+    FB.login(
+      (response: any) => {
+        if (response.status === 'connected') {
+          console.log('Đăng nhập thành công vào trang: ' + pageId);
+          // Thực hiện các xử lý khác sau khi đăng nhập vào trang
+        }
+      },
+      {
+        scope: 'public_profile,email',
+        auth_type: 'rerequest',
+        return_scopes: true,
+      }
+    );
   }
 }
