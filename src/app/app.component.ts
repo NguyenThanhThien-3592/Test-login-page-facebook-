@@ -30,6 +30,7 @@ export class AppComponent {
         xfbml: true,
         version: 'v17.0',
       });
+      console.log('Init fbAsyncInit');
 
       FB.getLoginStatus((response: any) => {
         statusChangeCallback(response);
@@ -37,8 +38,6 @@ export class AppComponent {
 
       FB.AppEvents.logPageView();
     };
-
-    (window as any).fbAsyncInit();
 
     const statusChangeCallback = (response: any) => {
       console.log('statusChangeCallback');
