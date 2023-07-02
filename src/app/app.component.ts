@@ -45,6 +45,7 @@ export class AppComponent {
           if (response && !response.error) {
             console.log(response);
             this.pages = response.data;
+            console.log(this.pages.length);
           }
         });
       } else {
