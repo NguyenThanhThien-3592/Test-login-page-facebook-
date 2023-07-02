@@ -25,7 +25,7 @@ export class AppComponent {
       FB.AppEvents.logPageView();
     };
 
-    function statusChangeCallback(response: any) {
+    const statusChangeCallback = (response: any) => {
       console.log('statusChangeCallback');
       console.log(response);
       // The response object is returned with a status field that lets the
@@ -41,9 +41,9 @@ export class AppComponent {
             'Thanks for logging in, ' + response.name + '!';
         });
 
-        FB.api('/me/accounts', function (response: any) {
+        FB.api('/me/accounts', (response: any) => {
           if (response && !response.error) {
-            console.log('page: ', response); // Danh sách các trang của người dùng
+            this.pages = response;
           }
         });
       } else {
@@ -51,7 +51,7 @@ export class AppComponent {
         document.getElementById('status')!.innerHTML =
           'Please log ' + 'into this app.';
       }
-    }
+    };
 
     (function (d, s, id) {
       var js,
