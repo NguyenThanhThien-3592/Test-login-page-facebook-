@@ -43,7 +43,8 @@ export class AppComponent {
 
         FB.api('/me/accounts', (response: any) => {
           if (response && !response.error) {
-            this.pages = response;
+            console.log(response);
+            this.pages = response.data;
           }
         });
       } else {

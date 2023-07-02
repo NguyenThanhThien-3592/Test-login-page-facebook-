@@ -18,7 +18,7 @@
 ></div>
 
 <ul *ngIf="pages">
-  <li *ngFor="let page of pages.data">
+  <li *ngFor="let page of pages">
     {{ page.name }}
     <button (click)="loginToPage(page.id)">Submit</button>
   </li>
