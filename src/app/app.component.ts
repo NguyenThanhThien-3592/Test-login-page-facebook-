@@ -8,10 +8,16 @@ declare const FB: any;
 })
 export class AppComponent {
   title = 'login-page';
+  num = 0;
+  numBehaviorSubject = new BehaviorSubject(0);
   pages: any = [];
   pagesSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>(this.pages);
   isLogin = false;
+  increase() {
+    this.numBehaviorSubject.next(this.num + 1);
+  }
   ngOnInit() {
+    this.numBehaviorSubject.subscribe((num) => (this.num = num));
     this.pagesSubject.subscribe((response) => {
       this.pages = response;
       console.log('update: pages');

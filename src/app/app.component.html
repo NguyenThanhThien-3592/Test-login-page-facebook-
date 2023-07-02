@@ -1,5 +1,7 @@
 <div id="fb-root"></div>
 <div id="status"></div>
+<span>{{ num }}</span>
+<button (click)="increase()">Increase</button>
 <div class="">{{ pages.length }}</div>
 <ul *ngIf="pages.length != 0">
   <li *ngFor="let page of pages">
