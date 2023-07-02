@@ -14,7 +14,7 @@ export class AppComponent {
   ngOnInit() {
     this.pagesSubject.subscribe((response) => {
       this.pages = response;
-      console.log(this.pages);
+      console.log('update: pages');
     });
 
     (window as any).fbAsyncInit = () => {
