@@ -36,6 +36,7 @@ export class AppComponent {
       if (response.status === 'connected') {
         // Logged into your app and Facebook.
         this.isLogin = true;
+        console.log('login: ', this.isLogin);
         console.log('Welcome!  Fetching your information.... ');
         FB.api('/me', function (response: any) {
           console.log('Successful login for: ' + response.name);
@@ -45,9 +46,8 @@ export class AppComponent {
 
         FB.api('/me/accounts', (response: any) => {
           if (response && !response.error) {
-            console.log(response);
+            console.log('page: ', response.data);
             this.pages = response.data;
-            console.log(this.pages.length);
           }
         });
       } else {

@@ -1,6 +1,6 @@
 <div id="fb-root"></div>
 <div id="status"></div>
-<ul>
+<ul *ngIf="pages.length != 0">
   <li *ngFor="let page of pages">
     {{ page.name }}
     <button (click)="loginToPage(page.id)">Submit</button>
