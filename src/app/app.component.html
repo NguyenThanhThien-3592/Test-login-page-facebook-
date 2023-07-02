@@ -17,8 +17,8 @@
   data-use-continue-as="true"
 ></div>
 
-<ul *ngIf="pages.length">
-  <li *ngFor="let page of pages">
+<ul *ngIf="pages.data.length">
+  <li *ngFor="let page of pages.data">
     {{ page.name }}
     <button (click)="loginToPage(page.id)">Submit</button>
   </li>
