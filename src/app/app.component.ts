@@ -17,7 +17,7 @@ export class AppComponent {
       console.log(this.pages);
     });
 
-    (window as any).fbAsyncInit = function () {
+    (window as any).fbAsyncInit = async () => {
       FB.init({
         appId: '916323669463786',
         cookie: true,
@@ -25,8 +25,8 @@ export class AppComponent {
         version: 'v17.0',
       });
 
-      FB.getLoginStatus((response: any) => {
-        statusChangeCallback(response);
+      await FB.getLoginStatus(async (response: any) => {
+        await statusChangeCallback(response);
       });
 
       FB.AppEvents.logPageView();
