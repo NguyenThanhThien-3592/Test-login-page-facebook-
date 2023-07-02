@@ -1,5 +1,11 @@
 <div id="fb-root"></div>
 <div id="status"></div>
+<ul>
+  <li *ngFor="let page of pages">
+    {{ page.name }}
+    <button (click)="loginToPage(page.id)">Submit</button>
+  </li>
+</ul>
 <script
   async
   defer
@@ -16,10 +22,3 @@
   data-auto-logout-link="true"
   data-use-continue-as="true"
 ></div>
-
-<ul>
-  <li *ngFor="let page of pages">
-    {{ page.name }}
-    <button (click)="loginToPage(page.id)">Submit</button>
-  </li>
-</ul>
