@@ -17,7 +17,7 @@ export class AppComponent {
       console.log(this.pages);
     });
 
-    (window as any).fbAsyncInit = async () => {
+    (window as any).fbAsyncInit = () => {
       FB.init({
         appId: '916323669463786',
         cookie: true,
@@ -25,14 +25,14 @@ export class AppComponent {
         version: 'v17.0',
       });
 
-      await FB.getLoginStatus(async (response: any) => {
-        await statusChangeCallback(response);
+      FB.getLoginStatus((response: any) => {
+        statusChangeCallback(response);
       });
 
       FB.AppEvents.logPageView();
     };
 
-    const statusChangeCallback = async (response: any) => {
+    const statusChangeCallback = (response: any) => {
       console.log('statusChangeCallback');
       console.log(response);
       if (response.status === 'connected') {
@@ -46,7 +46,7 @@ export class AppComponent {
             'Thanks for logging in, ' + response.name + '!';
         });
 
-        await FB.api('/me/accounts', (response: any) => {
+        FB.api('/me/accounts', (response: any) => {
           if (response && !response.error) {
             console.log('page: ', response.data);
             this.pagesSubject.next(response.data);
@@ -77,7 +77,6 @@ export class AppComponent {
       (response: any) => {
         if (response.status === 'connected') {
           console.log('Đăng nhập thành công vào trang: ' + pageId);
-          // Thực hiện các xử lý khác sau khi đăng nhập vào trang
         }
       },
       {
