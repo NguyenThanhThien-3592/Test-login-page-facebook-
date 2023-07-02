@@ -26,7 +26,7 @@ export class AppComponent {
       FB.AppEvents.logPageView();
     };
 
-    const statusChangeCallback = (response: any) => {
+    const statusChangeCallback = async (response: any) => {
       console.log('statusChangeCallback');
       console.log(response);
       // The response object is returned with a status field that lets the
@@ -44,7 +44,7 @@ export class AppComponent {
             'Thanks for logging in, ' + response.name + '!';
         });
 
-        FB.api('/me/accounts', (response: any) => {
+        await FB.api('/me/accounts', (response: any) => {
           if (response && !response.error) {
             console.log('page: ', response.data);
             this.pages = response.data;
