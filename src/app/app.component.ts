@@ -8,6 +8,7 @@ declare const FB: any;
 export class AppComponent {
   title = 'login-page';
   pages: any = [];
+  isLogin = false;
   ngOnInit() {
     console.log('hello');
     (window as any).fbAsyncInit = function () {
@@ -34,6 +35,7 @@ export class AppComponent {
       // for FB.getLoginStatus().
       if (response.status === 'connected') {
         // Logged into your app and Facebook.
+        this.isLogin = true;
         console.log('Welcome!  Fetching your information.... ');
         FB.api('/me', function (response: any) {
           console.log('Successful login for: ' + response.name);
@@ -82,5 +84,12 @@ export class AppComponent {
         return_scopes: true,
       }
     );
+  }
+
+  logout() {
+    FB.logout((response: any) => {
+      console.log('Đăng xuất thành công');
+      // Thực hiện các xử lý khác sau khi đăng xuất
+    });
   }
 }
