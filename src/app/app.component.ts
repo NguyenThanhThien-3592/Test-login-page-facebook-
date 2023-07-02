@@ -14,7 +14,7 @@ export class AppComponent {
         appId: '916323669463786',
         cookie: true,
         xfbml: true,
-        version: 'v16.0',
+        version: 'v17.0',
       });
       FB.getLoginStatus((response: any) => {
         statusChangeCallback(response);
