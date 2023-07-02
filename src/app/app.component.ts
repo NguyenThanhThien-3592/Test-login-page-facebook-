@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 declare const FB: any;
 @Component({
   selector: 'app-root',
@@ -8,9 +9,14 @@ declare const FB: any;
 export class AppComponent {
   title = 'login-page';
   pages: any = [];
+  pagesSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>(this.pages);
   isLogin = false;
   ngOnInit() {
-    console.log('hello');
+    this.pagesSubject.subscribe((response) => {
+      this.pages = response;
+      console.log(this.pages);
+    });
+
     (window as any).fbAsyncInit = function () {
       FB.init({
         appId: '916323669463786',
@@ -29,10 +35,6 @@ export class AppComponent {
     const statusChangeCallback = async (response: any) => {
       console.log('statusChangeCallback');
       console.log(response);
-      // The response object is returned with a status field that lets the
-      // app know the current login status of the person.
-      // Full docs on the response object can be found in the documentation
-      // for FB.getLoginStatus().
       if (response.status === 'connected') {
         // Logged into your app and Facebook.
         this.isLogin = true;
@@ -47,7 +49,7 @@ export class AppComponent {
         await FB.api('/me/accounts', (response: any) => {
           if (response && !response.error) {
             console.log('page: ', response.data);
-            this.pages = response.data;
+            this.pagesSubject.next(response.data);
           }
         });
       } else {
