@@ -1,4 +1,5 @@
 <div id="fb-root"></div>
+<button *ngIf="isLogin" (click)="logout()">Đăng xuất</button>
 <div id="status"></div>
 <span>{{ num }}</span>
 <button (click)="increase()">Increase</button>
@@ -26,4 +27,3 @@
   data-auto-logout-link="true"
   data-use-continue-as="true"
 ></div>
-<button *ngIf="isLogin" (click)="logout()">Đăng xuất</button>

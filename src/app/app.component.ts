@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 declare const FB: any;
 @Component({
@@ -13,29 +14,27 @@ export class AppComponent {
   pages: any = [];
   pagesSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>(this.pages);
   isLogin = false;
+  constructor(private router: Router) {}
   increase() {
     this.numBehaviorSubject.next(this.num + 1);
   }
   ngOnInit() {
     this.numBehaviorSubject.subscribe((num) => (this.num = num));
-    this.pagesSubject.subscribe((response) => {
-      this.pages = response;
-      console.log('update: pages');
-    });
 
     (window as any).fbAsyncInit = () => {
       FB.init({
         appId: '916323669463786',
+        autoLogAppEvents: true,
         cookie: true,
         xfbml: true,
         version: 'v17.0',
       });
+
       console.log('Init fbAsyncInit');
 
       FB.getLoginStatus((response: any) => {
         statusChangeCallback(response);
       });
-
       FB.AppEvents.logPageView();
     };
 
@@ -56,6 +55,7 @@ export class AppComponent {
         FB.api('/me/accounts', (response: any) => {
           if (response && !response.error) {
             console.log('page: ', response.data);
+            this.pages = response.data;
             this.pagesSubject.next(response.data);
           }
         });
@@ -77,6 +77,11 @@ export class AppComponent {
       js.src = 'https://connect.facebook.net/en_US/sdk.js';
       fjs.parentNode!.insertBefore(js, fjs);
     })(document, 'script', 'facebook-jssdk');
+
+    this.pagesSubject.subscribe((response) => {
+      this.pages = response;
+      console.log('update: pages');
+    });
   }
 
   loginToPage(pageId: string) {
@@ -97,7 +102,7 @@ export class AppComponent {
   logout() {
     FB.logout((response: any) => {
       console.log('Đăng xuất thành công');
-      // Thực hiện các xử lý khác sau khi đăng xuất
+      this.router.navigate(['/']);
     });
   }
 }
