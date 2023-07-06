@@ -38,10 +38,6 @@ export class AppComponent {
           document.getElementById('status')!.innerHTML =
             'Thanks for logging in, ' + response.name + '!';
         });
-
-        FB.api('/me/accounts', (response: any) => {
-          console.log('reponse:', response);
-        });
       } else {
         document.getElementById('status')!.innerHTML =
           'Please log ' + 'into this app.';
