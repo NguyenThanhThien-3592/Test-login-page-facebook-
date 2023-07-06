@@ -9,21 +9,17 @@ declare const FB: any;
 })
 export class AppComponent {
   title = 'login-page';
-  num = 0;
-  numBehaviorSubject = new BehaviorSubject(0);
   pages: any = [];
+
   pagesSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>(this.pages);
   isLogin = false;
-  constructor(private router: Router) {}
-  increase() {
-    this.numBehaviorSubject.next(this.num + 1);
-  }
-  ngOnInit() {
-    this.numBehaviorSubject.subscribe((num) => (this.num = num));
 
+  constructor(private router: Router) {}
+
+  ngOnInit() {
     (window as any).fbAsyncInit = () => {
       FB.init({
-        appId: '916323669463786',
+        appId: '206673099006855',
         autoLogAppEvents: true,
         cookie: true,
         xfbml: true,
@@ -55,7 +51,7 @@ export class AppComponent {
         FB.api('/me/accounts', (response: any) => {
           if (response && !response.error) {
             console.log('page: ', response.data);
-            this.pages = response.data;
+            this.pages = [...response.data];
             this.pagesSubject.next(response.data);
           }
         });
