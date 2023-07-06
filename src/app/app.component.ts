@@ -18,7 +18,6 @@ export class AppComponent {
     (window as any).fbAsyncInit = () => {
       FB.init({
         appId: '206673099006855',
-        autoLogAppEvents: true,
         cookie: true,
         xfbml: true,
         version: 'v17.0',
