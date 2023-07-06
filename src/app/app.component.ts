@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+
 declare const FB: any;
 @Component({
   selector: 'app-root',
@@ -26,7 +26,7 @@ export class AppComponent {
       FB.getLoginStatus((response: any) => {
         statusChangeCallback(response);
       });
-      FB.AppEvents.logPageView();
+      FB.AppEvents.logPageView('PageView');
     };
 
     const statusChangeCallback = (response: any) => {
