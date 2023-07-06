@@ -17,7 +17,7 @@ export class AppComponent {
   ngOnInit() {
     (window as any).fbAsyncInit = () => {
       FB.init({
-        appId: '206673099006855',
+        appId: '1569535140204107',
         cookie: true,
         xfbml: true,
         version: 'v17.0',
