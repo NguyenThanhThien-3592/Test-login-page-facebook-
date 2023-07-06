@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 
 declare const FB: any;
 @Component({
@@ -11,7 +10,9 @@ declare const FB: any;
 export class AppComponent {
   title = 'login-page';
 
-  constructor(private router: Router, private http: HttpClient) {}
+  isLogin = false;
+
+  constructor(private router: Router) {}
 
   ngOnInit() {
     (window as any).fbAsyncInit = () => {
@@ -29,14 +30,20 @@ export class AppComponent {
     };
 
     const statusChangeCallback = (response: any) => {
+      console.log('statusChangeCallback');
       console.log(response);
       if (response.status === 'connected') {
         // Logged into your app and Facebook.
+        this.isLogin = true;
+        console.log('login: ', this.isLogin);
         console.log('Welcome!  Fetching your information.... ');
         FB.api('/me', function (response: any) {
           console.log('Successful login for: ' + response.name);
           document.getElementById('status')!.innerHTML =
             'Thanks for logging in, ' + response.name + '!';
+        });
+        FB.api('/me/accounts', (res: any) => {
+          console.log(res);
         });
       } else {
         document.getElementById('status')!.innerHTML =
