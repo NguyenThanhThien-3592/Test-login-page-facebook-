@@ -2,7 +2,8 @@
   "name": "login-page",
   "version": "0.0.0",
   "scripts": {
-    "push": "git push",
+    "commit": "git commit -m 'update'",
+    "push": "git add . && git commit -m 'update' && git push",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
