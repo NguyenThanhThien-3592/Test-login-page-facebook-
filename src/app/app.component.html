@@ -1,5 +1,5 @@
 <div id="fb-root"></div>
-<button *ngIf="isLogin" (click)="logout()">Đăng xuất</button>
+<button (click)="logout()">Đăng xuất</button>
 <div id="status"></div>
 
 <script
@@ -10,7 +10,6 @@
   nonce="uGtBVpX1"
 ></script>
 <div
-  *ngIf="!isLogin"
   class="fb-login-button"
   data-width="500px"
   data-size=""
