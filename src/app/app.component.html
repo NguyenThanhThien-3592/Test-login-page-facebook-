@@ -1,13 +1,6 @@
 <div id="fb-root"></div>
 <button *ngIf="isLogin" (click)="logout()">Đăng xuất</button>
 <div id="status"></div>
-<div class="">{{ pages.length }}</div>
-<ul *ngIf="pages.length != 0">
-  <li *ngFor="let page of pages">
-    {{ page.name }}
-    <button (click)="loginToPage(page.id)">Submit</button>
-  </li>
-</ul>
 
 <script
   async

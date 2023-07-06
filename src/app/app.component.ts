@@ -9,9 +9,7 @@ declare const FB: any;
 })
 export class AppComponent {
   title = 'login-page';
-  pages: any = [];
 
-  pagesSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>(this.pages);
   isLogin = false;
 
   constructor(private router: Router) {}
@@ -25,8 +23,6 @@ export class AppComponent {
         xfbml: true,
         version: 'v17.0',
       });
-
-      console.log('Init fbAsyncInit');
 
       FB.getLoginStatus((response: any) => {
         statusChangeCallback(response);
@@ -47,14 +43,6 @@ export class AppComponent {
           document.getElementById('status')!.innerHTML =
             'Thanks for logging in, ' + response.name + '!';
         });
-
-        FB.api('/me/accounts', (response: any) => {
-          if (response && !response.error) {
-            console.log('page: ', response.data);
-            this.pages = [...response.data];
-            this.pagesSubject.next(response.data);
-          }
-        });
       } else {
         document.getElementById('status')!.innerHTML =
           'Please log ' + 'into this app.';
@@ -72,27 +60,6 @@ export class AppComponent {
       js.src = 'https://connect.facebook.net/en_US/sdk.js';
       fjs.parentNode!.insertBefore(js, fjs);
     })(document, 'script', 'facebook-jssdk');
-
-    this.pagesSubject.subscribe((response) => {
-      this.pages = response;
-      console.log('update: pages');
-    });
-  }
-
-  loginToPage(pageId: string) {
-    this.logout();
-    FB.login(
-      (response: any) => {
-        if (response.status === 'connected') {
-          console.log('Đăng nhập thành công vào trang: ' + pageId);
-        }
-      },
-      {
-        scope: 'public_profile,email',
-        auth_type: 'rerequest',
-        return_scopes: true,
-      }
-    );
   }
 
   logout() {
